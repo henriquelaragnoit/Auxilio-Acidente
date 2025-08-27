@@ -4,6 +4,14 @@
 */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+// abaixo dos imports existentes em index.tsx:
+const maskPhone = (v: string) =>
+  v
+    .replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/, '($1) $2')
+    .replace(/(\d{5})(\d{1,4})$/, '$1-$2')
+    .slice(0, 15);
+
 
 declare global {
   interface Window {
@@ -175,7 +183,18 @@ const ContactForm = () => {
           </div>
           <div className="form-group">
             <label htmlFor="whatsapp">WhatsApp (com DDD)</label>
-            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(11) 99999-9999" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" disabled={status === 'submitting'} />
+            <input <input
+  type="tel"
+  id="whatsapp"
+  name="whatsapp"
+  required
+  placeholder="(11) 99999-9999"
+  value={phone}
+  onChange={(e) => setPhone(maskPhone(e.target.value))}
+  autoComplete="tel"
+  disabled={status === 'submitting'}
+/>
+ />
           </div>
            <div className="form-group">
             <label htmlFor="message">Descreva brevemente o seu caso (opcional)</label>
