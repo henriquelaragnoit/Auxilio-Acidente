@@ -100,8 +100,8 @@ const HowItWorks = () => (
           <p>Cuidamos de toda a burocracia, seja no pedido administrativo ao INSS ou, se necessário, na ação judicial, mantendo você sempre informado.</p>
         </div>
         <div className="card">
-          <h3>3. Recebimento do Benefício</h3>
-          <p>Cobramos honorários iniciais para dar entrada no requerimento, e os honorários de êxito somente são devidos ao final da ação, caso o benefício seja concedido — garantindo transparência e alinhamento de interesses.</p>
+          <h3>3. Transparência nos Honorários</h3>
+          <p>Cobramos apenas uma taxa inicial para iniciar o processo. O restante dos honorários só é pago no final, se o benefício for concedido. Dessa forma, trabalhamos sempre alinhados ao seu interesse: conquistar o direito que você merece.</p>
         </div>
       </div>
     </div>
@@ -113,8 +113,8 @@ const About = () => (
         <div className="container about-section">
             <span className="tag">Quem Somos</span>
             <h2 id="quem-somos">Laragnoit Advogados</h2>
-            <p>Com mais de 8 anos de atuação, o Laragnoit Advogados se consolidou como um escritório que alia experiência, visão estratégica e atualização constante para oferecer soluções jurídicas eficazes e personalizadas.</p>
-            <p>Sob a liderança de Henrique Laragnoit Costa (OAB/SP 394.866) — membro das Comissões de Direito do Trabalho e de Direito Digital, Privacidade, Proteção de Dados e Inteligência Artificial da OAB de Bragança Paulista — o escritório se destaca pela dedicação em compreender as necessidades de cada cliente e conduzir seus casos com excelência técnica, ética e comprometimento.</p>
+            <p>Com mais de 8 anos de atuação, o escritório LARAGNOIT Advogados se consolidou como um escritório que alia experiência, visão estratégica e atualização constante para oferecer soluções jurídicas eficazes e personalizadas.</p>
+            <p>O escritório se destaca pela dedicação em compreender as necessidades de cada cliente e conduzir seus casos com excelência técnica, ética e comprometimento.</p>
             <p>Nosso propósito é construir resultados sólidos, sempre pautados na confiança, inovação e proximidade no atendimento, atuando de forma abrangente para atender demandas jurídicas em diferentes áreas do Direito.</p>
             <div className="cta-row" style={{ justifyContent: 'center' }}>
                 <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">Falar com especialista</a>
