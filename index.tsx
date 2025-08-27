@@ -189,7 +189,7 @@ const ContactForm = () => {
               required
               placeholder="(11) 99999-9999"
               value={phone}
-              onChange={(e) => setPhone(maskPhone(e.target.value))}  {/* ✅ máscara aplicada */}
+              onChange={(e) => setPhone(maskPhone(e.target.value))}
               autoComplete="tel"
               disabled={status === 'submitting'}
             />
