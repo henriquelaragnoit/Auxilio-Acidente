@@ -114,9 +114,23 @@ p.lead {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .card ul {
-  padding-left: 0;
-  list-style-position: inside;
+  list-style: none;       /* remove os bullets padrões */
+  padding-left: 0;        /* tira o espaçamento extra */
 }
+
+.card ul li {
+  position: relative;
+  padding-left: 20px;     /* espaço para o "bullet" customizado */
+}
+
+.card ul li::before {
+  content: "•";           /* cria o bullet manual */
+  position: absolute;
+  left: 0;
+  color: var(--text-dark); /* usa a cor padrão do texto */
+  font-weight: bold;
+}
+
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 15px 35px rgba(0,0,0,.1);
