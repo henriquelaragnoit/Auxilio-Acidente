@@ -2,7 +2,7 @@ name: Deploy Vite to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # publica quando fizer commit no main
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -26,15 +26,15 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # Usamos "npm install" (não 'npm ci') para não exigir package-lock.json
       - name: Install dependencies
         run: npm install
 
-      # Garante que existe script "build" no package.json
       - name: Build
         run: npm run build
 
-      # Envia a pasta "dist" (padrão do Vite) para o Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
