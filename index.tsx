@@ -22,7 +22,7 @@ const trackLead = (label: string) => {
 
 const WHATSAPP_LINK = "https://wa.me/5511943849988?text=Tenho%20d%C3%BAvidas%20sobre%20Aux%C3%ADlio-Acidente";
 
-// 👉 Função de máscara para o campo WhatsApp
+/* ✅ NOVO: máscara para telefone (WhatsApp) */
 const maskPhone = (v: string) =>
   v
     .replace(/\D/g, '')
@@ -64,7 +64,72 @@ const Header = () => (
   </header>
 );
 
-// ... (demais componentes continuam iguais)
+const TrustBelt = () => (
+  <div className="belt" role="region" aria-label="Pontos de confiança">
+    <div className="container belt-list">
+      <div className="belt-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12l4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg> Análise gratuita do seu direito</div>
+      <div className="belt-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1v22M1 12h22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg> Atuação no INSS e na Justiça</div>
+      <div className="belt-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0Zm6 0 2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg> Honorários Acessíveis</div>
+    </div>
+  </div>
+);
+
+const WhatIsIt = () => (
+  <section aria-labelledby="o-que-e">
+    <div className="container">
+      <h2 id="o-que-e">O que é o Auxílio-Acidente?</h2>
+      <p className="lead">É um benefício do INSS pago ao trabalhador que sofre um acidente (de trabalho ou não) e fica com sequelas permanentes que diminuem sua capacidade para o trabalho. Funciona como uma <strong>indenização mensal</strong> que você recebe <strong>até se aposentar</strong>, e pode ser acumulada com o seu salário se continuar trabalhando.</p>
+    </div>
+  </section>
+);
+
+const WhoQualifies = () => (
+  <section className="section-dark" aria-labelledby="quem-tem-direito">
+    <div className="container">
+      <h2 id="quem-tem-direito">Quem pode ter direito ao benefício?</h2>
+      <div className="grid grid-2">
+        <div className="card">
+          <h3>Requisitos Principais:</h3>
+          <div className="check-item"><CheckIcon /> Ser segurado do INSS (ex: trabalhador com carteira assinada).</div>
+          <div className="check-item"><CheckIcon /> Ter sofrido um acidente de qualquer natureza ou doença ocupacional.</div>
+          <div className="check-item"><CheckIcon /> Ficar com sequelas que reduzem permanentemente a capacidade de trabalho.</div>
+        </div>
+        <div className="card">
+          <h3>Exemplos Comuns de Sequelas:</h3>
+          <p>Qualquer limitação, por menor que seja, pode dar direito ao benefício.</p>
+          <ul>
+            <li>Lesões na coluna com limitação de esforço.</li>
+            <li>Redução de força ou movimento em braços, mãos ou pernas.</li>
+            <li>Limitações e dores crônicas após fraturas ou cirurgias.</li>
+            <li>Perda parcial da audição ou visão.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const HowItWorks = () => (
+  <section id="como-funciona" aria-labelledby="como-funciona-h2">
+    <div className="container">
+      <h2 id="como-funciona-h2">Nosso processo é simples e transparente</h2>
+      <div className="grid grid-3">
+        <div className="card">
+          <h3>1. Análise Gratuita</h3>
+          <p>Você nos conta seu caso pelo WhatsApp. Analisamos seus documentos e avaliamos a viabilidade do seu direito, sem nenhum custo inicial.</p>
+        </div>
+        <div className="card">
+          <h3>2. Processo e Acompanhamento</h3>
+          <p>Cuidamos de toda a burocracia, seja no pedido administrativo ao INSS ou, se necessário, na ação judicial, mantendo você sempre informado.</p>
+        </div>
+        <div className="card">
+          <h3>3. Transparência nos Honorários</h3>
+          <p>Cobramos apenas uma taxa inicial para iniciar o processo. O restante dos honorários só é pago no final, se o benefício for concedido. Dessa forma, trabalhamos sempre alinhados ao seu interesse: conquistar o direito que você merece.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const ContactForm = () => {
   const [name, setName] = React.useState('');
@@ -124,12 +189,12 @@ const ContactForm = () => {
               required
               placeholder="(11) 99999-9999"
               value={phone}
-              onChange={(e) => setPhone(maskPhone(e.target.value))}
+              onChange={(e) => setPhone(maskPhone(e.target.value))}  {/* ✅ máscara aplicada */}
               autoComplete="tel"
               disabled={status === 'submitting'}
             />
           </div>
-          <div className="form-group">
+           <div className="form-group">
             <label htmlFor="message">Descreva brevemente o seu caso (opcional)</label>
             <textarea id="message" name="message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)} disabled={status === 'submitting'}></textarea>
           </div>
@@ -148,7 +213,69 @@ const ContactForm = () => {
   );
 };
 
-// ... (FAQ, About, Footer, FloatingWhatsAppButton continuam iguais)
+const About = () => (
+    <section aria-labelledby="quem-somos">
+        <div className="container about-section">
+            <span className="tag">Quem Somos</span>
+            <h2 id="quem-somos">Laragnoit Advogados</h2>
+            <p>Com mais de 8 anos de atuação, o escritório LARAGNOIT Advogados se consolidou como um escritório que alia experiência, visão estratégica e atualização constante para oferecer soluções jurídicas eficazes e personalizadas.</p>
+            <p>O escritório se destaca pela dedicação em compreender as necessidades de cada cliente e conduzir seus casos com excelência técnica, ética e comprometimento.</p>
+            <p>Nosso propósito é construir resultados sólidos, sempre pautados na confiança, inovação e proximidade no atendimento, atuando de forma abrangente para atender demandas jurídicas em diferentes áreas do Direito.</p>
+            <div className="cta-row" style={{ justifyContent: 'center' }}>
+                <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" onClick={() => trackLead('whatsapp_cta_about')}>Falar com especialista</a>
+            </div>
+        </div>
+    </section>
+);
+
+const FAQ = () => (
+  <section id="faq" className="section-dark" aria-labelledby="faq-h2">
+    <div className="container" style={{maxWidth: '800px'}}>
+      <h2 id="faq-h2" style={{textAlign: 'center'}}>Perguntas Frequentes</h2>
+      <div className="faq-list">
+        <details className="faq-item">
+          <summary>Posso receber mesmo continuando a trabalhar?</summary>
+          <div className="answer"><p>Sim! O Auxílio-Acidente é uma indenização, não um benefício por incapacidade.</p></div>
+        </details>
+        <details className="faq-item">
+          <summary>Qual o valor e por quanto tempo recebo?</summary>
+          <div className="answer"><p>O valor corresponde a 50% do seu salário de benefício e é pago mensalmente até a sua aposentadoria.</p></div>
+        </details>
+        <details className="faq-item">
+          <summary>Preciso ter a CAT (Comunicação de Acidente de Trabalho)?</summary>
+          <div className="answer"><p>Não necessariamente. O benefício é devido para acidentes de qualquer natureza, mesmo os que ocorrem fora do ambiente de trabalho. A CAT é importante, mas não é obrigatória.</p></div>
+        </details>
+        <details className="faq-item">
+          <summary>Quanto tempo tenho para pedir o benefício?</summary>
+          <div className="answer"><p>Embora não haja um prazo final (prescrição) para pedir a concessão do benefício, você só pode cobrar os valores retroativos dos últimos 5 anos. Por isso, não perca tempo e dinheiro, busque seu direito o quanto antes.</p></div>
+        </details>
+      </div>
+      <div className="cta-center">
+        <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" onClick={() => trackLead('whatsapp_cta_faq')}>Agendar minha análise gratuita</a>
+      </div>
+    </div>
+  </section>
+);
+
+const PageFooter = () => (
+    <footer role="contentinfo">
+        <div className="container">
+            <p><strong>Laragnoit Advogados © TODOS OS DIREITOS RESERVADOS</strong></p>
+            <p className="muted" style={{ fontSize: '12px', marginTop: '16px' }}>
+                Este site possui caráter informativo, sem promessa de resultado, em conformidade com o Provimento 205/2021 da OAB.
+            </p>
+            <p className="muted" style={{ fontSize: '12px', marginTop: '8px' }}>
+                Esse site não faz parte do Google LLC nem do Facebook Inc. e não oferecemos nenhum tipo de serviço oficial do governo. Trabalhamos exclusivamente com serviços jurídicos.
+            </p>
+        </div>
+    </footer>
+);
+
+const FloatingWhatsAppButton = () => (
+    <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="floating-whatsapp-btn" aria-label="Fale no WhatsApp" onClick={() => trackLead('whatsapp_cta_floating')}>
+        <WhatsAppIcon size={32} />
+    </a>
+);
 
 function App() {
   return (
