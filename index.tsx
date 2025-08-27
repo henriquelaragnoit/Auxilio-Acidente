@@ -5,7 +5,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-const WHATSAPP_LINK = "https://wa.me/5511943849988?text=Ol%C3%A1!%20Quero%20verificar%20meu%20direito%20ao%20Aux%C3%ADlio-Acidente";
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+  }
+}
+
+const trackLead = (label: string) => {
+    if (window.gtag) {
+        window.gtag('event', 'generate_lead', {
+            'send_to': 'G-GD2TPPZWNH',
+            'event_label': label,
+        });
+    }
+};
+
+const WHATSAPP_LINK = "https://wa.me/5511943849988?text=Tenho%20d%C3%BAvidas%20sobre%20Aux%C3%ADlio-Acidente";
 
 const WhatsAppIcon = ({ size = 18 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ width: size, height: size }}>
@@ -24,7 +39,7 @@ const Header = () => (
         <p className="lead">Requeira uma indenização mensal paga pelo INSS até sua aposentadoria, mesmo que você continue trabalhando.</p>
         <p className="lead">Analisamos seu caso gratuitamente.</p>
         <div className="cta-row">
-          <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+          <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" onClick={() => trackLead('whatsapp_cta_hero')}>
             <WhatsAppIcon />
             Quero verificar meu direito
           </a>
@@ -108,6 +123,79 @@ const HowItWorks = () => (
   </section>
 );
 
+const ContactForm = () => {
+  const [name, setName] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [message, setMessage] = React.useState('');
+  const [consent, setConsent] = React.useState(false);
+  const [status, setStatus] = React.useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!consent) {
+      alert('Por favor, confirme que você leu e concorda com os termos de privacidade.');
+      return;
+    }
+    
+    setStatus('submitting');
+    
+    try {
+        // Replace 'mvoeploe' with your actual Formspree form ID
+        const response = await fetch('https://formspree.io/f/mvoeploe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, message, _subject: 'Novo Contato - Auxílio-Acidente' }),
+        });
+
+        if (response.ok) {
+            trackLead('form_submit');
+            setStatus('success');
+            setName('');
+            setPhone('');
+            setMessage('');
+            setConsent(false);
+        } else {
+            setStatus('error');
+        }
+    } catch (error) {
+        console.error("Form submission error:", error);
+        setStatus('error');
+    }
+  };
+
+  return (
+    <section id="contato" className="form-section" aria-labelledby="form-h2">
+      <div className="container" style={{maxWidth: '700px'}}>
+        <h2 id="form-h2">Análise Preliminar Gratuita</h2>
+        <p className="lead" style={{textAlign: 'center', marginBottom: '32px'}}>Prefere ser contatado? Preencha o formulário abaixo que um de nossos especialistas retornará o mais breve possível.</p>
+        <form className="contact-form" onSubmit={handleSubmit} noValidate>
+          <div className="form-group">
+            <label htmlFor="name">Nome Completo</label>
+            <input type="text" id="name" name="name" required value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" disabled={status === 'submitting'} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="whatsapp">WhatsApp (com DDD)</label>
+            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(11) 99999-9999" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" disabled={status === 'submitting'} />
+          </div>
+           <div className="form-group">
+            <label htmlFor="message">Descreva brevemente o seu caso (opcional)</label>
+            <textarea id="message" name="message" rows={4} value={message} onChange={(e) => setMessage(e.target.value)} disabled={status === 'submitting'}></textarea>
+          </div>
+          <div className="form-consent">
+            <input type="checkbox" id="lgpd" name="lgpd" required checked={consent} onChange={(e) => setConsent(e.target.checked)} disabled={status === 'submitting'} />
+            <label htmlFor="lgpd">Li e concordo que meus dados serão usados para fins de contato, conforme a Lei Geral de Proteção de Dados (LGPD).</label>
+          </div>
+          <button type="submit" className="btn btn-primary" style={{width: '100%'}} disabled={status === 'submitting'}>
+            {status === 'submitting' ? 'Enviando...' : 'Enviar para análise'}
+          </button>
+          {status === 'success' && <p className="form-status success">Mensagem enviada com sucesso! Entraremos em contato em breve.</p>}
+          {status === 'error' && <p className="form-status error">Ocorreu um erro ao enviar. Por favor, tente novamente ou nos chame no WhatsApp.</p>}
+        </form>
+      </div>
+    </section>
+  );
+};
+
 const About = () => (
     <section aria-labelledby="quem-somos">
         <div className="container about-section">
@@ -117,7 +205,7 @@ const About = () => (
             <p>O escritório se destaca pela dedicação em compreender as necessidades de cada cliente e conduzir seus casos com excelência técnica, ética e comprometimento.</p>
             <p>Nosso propósito é construir resultados sólidos, sempre pautados na confiança, inovação e proximidade no atendimento, atuando de forma abrangente para atender demandas jurídicas em diferentes áreas do Direito.</p>
             <div className="cta-row" style={{ justifyContent: 'center' }}>
-                <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">Falar com especialista</a>
+                <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" onClick={() => trackLead('whatsapp_cta_about')}>Falar com especialista</a>
             </div>
         </div>
     </section>
@@ -146,7 +234,7 @@ const FAQ = () => (
         </details>
       </div>
       <div className="cta-center">
-        <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">Agendar minha análise gratuita</a>
+        <a className="btn btn-primary" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" onClick={() => trackLead('whatsapp_cta_faq')}>Agendar minha análise gratuita</a>
       </div>
     </div>
   </section>
@@ -167,7 +255,7 @@ const PageFooter = () => (
 );
 
 const FloatingWhatsAppButton = () => (
-    <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="floating-whatsapp-btn" aria-label="Fale no WhatsApp">
+    <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="floating-whatsapp-btn" aria-label="Fale no WhatsApp" onClick={() => trackLead('whatsapp_cta_floating')}>
         <WhatsAppIcon size={32} />
     </a>
 );
@@ -182,6 +270,7 @@ function App() {
         <WhatIsIt />
         <WhoQualifies />
         <HowItWorks />
+        <ContactForm />
         <FAQ />
         <About />
       </main>
